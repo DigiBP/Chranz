@@ -1,122 +1,61 @@
-# DigiBP Camunda Template
+# DigiBP Team Chranz - Innovative Idea submission
 
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Deploy to Heroku](https://img.shields.io/badge/deploy%20to-Heroku-6762a6.svg?longCache=true)](https://heroku.com/deploy)
 
-## Releases
+This README is used to document the submission of an innovative idea process. 
 
-### [7.16.0](https://github.com/DigiBP/digibp-camunda-template/tree/7.16.0)
-- Updating Camunda to 7.16.0
-- Updating Camunda Spring Boot Starter to 7.16.0
-- Updating Spring Boot to 2.5.4
+To have a picture of the current situation, a high level AS-IS process is created with BPMN 2.0. Together with the decision table, this AS-IS process is allready executable but requires a lot of human interaction. To reduce human tasks, the process is then digitalized and every step of digitalization is documented (TO-BE Digitalized).
 
-### [7.14.0](https://github.com/DigiBP/digibp-camunda-template/tree/7.14.0)
-- Updating Camunda to 7.14.0
-- Updating Camunda Spring Boot Starter to 7.14.0
-- Updating Spring Boot to 2.3.1.RELEASE
+## AS-IS Highlevel Process
+![](https://github.com/DigiBP/digibp-weisshorn/blob/master/Wiki/Process%20Model_v1-6-Health%20Insurance%20Application.jpeg?raw=true)
 
-### [7.13.0](https://github.com/DigiBP/digibp-camunda-template/tree/7.13.0)
-- Updating Camunda to 7.13.0
-- Updating Camunda Spring Boot Starter to 7.13.0
-- Updating Spring Boot to 2.2.5.RELEASE
+1.	step 1
+2.	step 2 <br>
+•	xxx <br>
+•	xxx <br>
+•	xxx <br>
+The innovetive idea will only be accepted if... then goes to...
+3.	step 3 <br>
 
-### [3.4.0](https://github.com/DigiBP/digibp-camunda-template/tree/3.4.0)
-- Updating Camunda to 7.12.0
-- Updating Camunda Spring Boot to 3.4.0
-- Updating Spring Boot to 2.2.1.RELEASE
+## Google Forms
+xxx <br>
 
-### [3.3.0](https://github.com/DigiBP/digibp-camunda-template/tree/3.3.0)
-- Updating Camunda to 7.11.0
-- Updating Camunda Spring Boot to 3.3.4
-- Updating Spring Boot to 2.1.6.RELEASE
-- Removing Maven Wrapper
-- Removing Camunda Modeler Templates
+## Decision Table
+The decision table "NAME"...
+By submitting the google form, the applicant submittes XX variables. 
+<br>
 
-### 3.2.3
-- Adding `spring-boot-starter-jdbc` dependency, otherwise `spring:datasource` is ignored.
 
-### 3.2.2
-- Use of Camunda deployment procedure (embedded:deployment) instead of Spring Boot (embedded:app)
-- Change of resource folder structure due to the use deployment procedure  
+## TO-BE Digitalized Process
+![](https://github.com/DigiBP/Chranz/ (( blob/master/Wiki/Process%20Model_v1-9-Health%20Insurance%20Application.jpeg?raw=true)))
 
-### 3.2.1
-- Rearrange the order of the REST and Web Apps dependencies
+1.	The submitter opens the google form link .... and fills out the innovative idea submission form. (By pressing the send button, it will be sent via Integromat (HTTP) to the digibp herokuapp with all relevant variables.)
+2.	Integromat sends a confirmation email to the submitter.
+3.	xxx
+4.	xxx
+5.	xxx
+6.	Camunda executes the decision table "xxx" The decision table uses different input variables from the form ( e.g. xxxxx). According to the variable there are three possible outputs: <br>
+•	xxx <br>
+•	xxx <br>
+•	xxx <br>
+The innovation will only be accepted if...
 
-### 3.2.0
-- Updating Camunda Spring Boot to 3.2.0
-- Updating Spring Boot to 2.1.1.RELEASE
+4.	If the application has been accepted Integromat ....
 
-### 3.1.0
-- Updating Camunda to 7.10.0
-- Updating Camunda Spring Boot to 3.1.0
 
-### 3.0.0
-- Updating Camunda to 7.9.0
-- Updating Camunda Spring Boot to 3.0.0
-- Updating Spring Boot to 2.0.2.RELEASE
+## Integrations
+The process starts with a google form filled out by a customer.
+![ApplicationForm](https://github.com/DigiBP/Chranz ((/blob/master/Wiki/Integration1.png) ))
+<br>
+<br>
 
-### 2.0.7
-- Default Maven goal `clean spring-boot:run`
-- Camunda Modeler Element Template (not in archetype)
+## Live Presentation
+Following gif illustrates the running process:
 
-### 2.0.6
-- A much nicer `deploy to Heroku` shield.
-
-### 2.0.5
-- Adding 'authorization: enabled: false' to application.yaml
-
-### 2.0.4
-- Adding application-local.yaml to .gitignore
-- Updating application.yaml and application-heroku.yaml
-
-### 2.0.3
-- Adding a README.md file
-
-### 2.0.2
-- Adding a .gitignore file
-
-### 2.0.1
-- Adding a .gitignore template file
-
-### 2.0.0
-- Updating Camunda Spring Boot to 2.3.0
-- Updating Spring Boot to 1.5.8.RELEASE
-
-### 1.0.6
-
-- Updating Camunda Spring Boot to 2.1.0
-- Updating Spring Boot to 1.5.3.RELEASE
-- Adding to application.yaml: `camunda:bpm:authorization:enabled:true`
-
-### 1.0.5
-
-- Updating Camunda Enterprise Edition to 7.6.4
-- Uncommenting Camunda REST API
-- Adding (uncommented) Spring Boot Data
-- Adding (uncommented) Hibernate configuration to application.yaml
-
-### 1.0.4
-
-- Adding Camunda Enterprise Edition
-
-### 1.0.3
-
-- Fixing the Maven issue
-
-### 1.0.2
-
-- Fixing the Eclipse issue
-
-### 1.0.1
-
-- Fixing the basic package
-
-### 1.0.0
-
-- Initial version
 
 ## Maintainer
-- [Andreas Martin](https://github.com/andreasmartin)
+- [Digitalisation of Business Processes](https://github.com/digibp)
 
 ## License
 - [Apache License, Version 2.0](https://github.com/DigiBP/digibp-archetype-camunda-boot/blob/master/LICENSE)
