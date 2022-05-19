@@ -8,7 +8,7 @@ This README is used to document the submission of an innovative idea process.
 To have a picture of the current situation, a high level AS-IS process is created with BPMN 2.0. Together with the decision table, this AS-IS process is allready executable but requires a lot of human interaction. To reduce human tasks, the process is then digitalized and every step of digitalization is documented (TO-BE Digitalized).
 
 ## AS-IS Highlevel Process
-![](https://github.com/DigiBP/digibp-weisshorn/blob/master/Wiki/Process%20Model_v1-6-Health%20Insurance%20Application.jpeg?raw=true)
+//![](https://github.com/DigiBP/.......
 
 1.	step 1
 2.	step 2 <br>
