@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_17wagua" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="Decision_0mqd38i" name="Relevance">
+    <decisionTable id="DecisionTable_1dm738j" hitPolicy="FIRST">
+      <input id="Input_1" label="Topic">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>topicCr</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0vjjzsn" label="Maturity Level">
+        <inputExpression id="LiteralExpression_12i82it" typeRef="string">
+          <text>maturityCr</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_12k92wg" label="Established Region">
+        <inputExpression id="LiteralExpression_1gsqwj1" typeRef="string">
+          <text>regionCr</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Relevance" name="relevance" typeRef="string" />
+      <output id="OutputClause_0gfcbg6" label="Relevance Annotations" name="relevanceAnnotations" typeRef="string" />
+      <rule id="DecisionRule_158zyyv">
+        <description></description>
+        <inputEntry id="UnaryTests_10j706j">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u5rn26">
+          <text>"Early Followers", "Not established"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qf12xf">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xe7pdk">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mw4odl">
+          <text>"we only focus on established products"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1n25jso">
+        <description></description>
+        <inputEntry id="UnaryTests_13g7nqt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ugrj3g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gkpwlx">
+          <text>"Europe outside CH", "Outside Europe"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0sor154">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ric4et">
+          <text>"the product needs to be established in Switzerland"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12hgp20">
+        <description></description>
+        <inputEntry id="UnaryTests_06sdk0k">
+          <text>"Architecture", "Client Portal", "Customer and Account", "Documents", "Enterprise Management", "online Tool", "Financing", "Investment Banking", "Payments"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ezar6h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xu1caf">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o48bpj">
+          <text>"yes"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0iopsmc">
+          <text>"we need a deeper analysis, to assess the idea"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06732wn">
+        <description></description>
+        <inputEntry id="UnaryTests_1khy4af">
+          <text>"Crypto", "Insurance", "Chat Bot", "Precaution"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jnje0a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u0o095">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1k4d5yc">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0323cok">
+          <text>"the topic has been discussed several times in our company and we decided not to invest resources in this field"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_0itmdb0" name="topic forwarding">
+    <decisionTable id="DecisionTable_1eaagca">
+      <input id="InputClause_1ekxr4n">
+        <inputExpression id="LiteralExpression_1bpvfr4" typeRef="string" />
+      </input>
+      <output id="OutputClause_1pzoqdf" typeRef="string" />
+      <rule id="DecisionRule_1ec5y2t">
+        <description>"The idea is declined as it is not compatible with finnova"</description>
+        <inputEntry id="UnaryTests_0j648oj">
+          <text>"not finnova compatible"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p7vsj9">
+          <text>decline</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vd85jv">
+        <description>"The idea is declined as the request is a change of daily work and not an innovation idea. Please open an CR"</description>
+        <inputEntry id="UnaryTests_15jruvg">
+          <text>"change of daily working"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z0c9n4">
+          <text>decline</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nf0p17">
+        <description>"The idea is taken to innovation Board, as it is an innovation idea"</description>
+        <inputEntry id="UnaryTests_00l0rpe">
+          <text>"innovative idea"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xtnudv">
+          <text>innovation Board</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1onyu5o">
+        <description>"The idea is taken to innovation Board, as it is a new idea and not implemented yet"</description>
+        <inputEntry id="UnaryTests_0iuyrla">
+          <text>"new idea, not implemented yet"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xg7864">
+          <text>innovation Board</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1l52wyj">
+        <description>"The idea is taken to innovation Board according to the strategic guideline"</description>
+        <inputEntry id="UnaryTests_0ppt363">
+          <text>"strategic decision needed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0eqrpw4">
+          <text>innovation Board</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mudan9">
+        <description>"The idea is declined as there are legal issues while implementation"</description>
+        <inputEntry id="UnaryTests_0jf2snb">
+          <text>"legal issue while implementing"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0buprms">
+          <text>decline</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gze1wi">
+        <description>"The idea is declined as alternatives are already implemented"</description>
+        <inputEntry id="UnaryTests_0w1pwd0">
+          <text>"existing alternative"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_118wu0w">
+          <text>decline</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jfqro5">
+        <description>"The idea is declined as the request is a change of daily work and not an innovation idea. Please open an CR"</description>
+        <inputEntry id="UnaryTests_1jcs9j1">
+          <text>"operative topic"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1e9gx7m">
+          <text>decline</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_0mqd38i">
+        <dc:Bounds height="80" width="180" x="160" y="290" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0zbbfh7" dmnElementRef="Decision_0itmdb0">
+        <dc:Bounds height="80" width="180" x="730" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
