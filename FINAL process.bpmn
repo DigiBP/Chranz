@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1s2va0c" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="EventTillClassifier" name="Event till DMN" isExecutable="true">
+    <bpmn:userTask id="Activity_0z0j264" name="Check innovation idea">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="sendingtimeCr" label="Date of CR" type="string" />
+          <camunda:formField id="fullNameSubmitter" label="Submitter" type="string" />
+          <camunda:formField id="eMailSubmitter" label="E-Mail" type="string" />
+          <camunda:formField id="titleCr" label="Title" type="string" />
+          <camunda:formField id="ideaCr" label="Idea Description" type="string" />
+          <camunda:formField id="linkCr" label="Link" type="string" />
+          <camunda:formField id="maturityCr" label="Maturity" type="string" />
+          <camunda:formField id="regionCr" label="Establishment" type="string" />
+          <camunda:formField id="topicCr" label="Topic" type="string" />
+        </camunda:formData>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="topicCr">${topicCr}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1jk2coe</bpmn:incoming>
+      <bpmn:outgoing>Flow_0uhxgrw</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1cjhwmr</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0iw11ud" messageRef="Message_0962zrm" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1jk2coe" sourceRef="Activity_08lznbu" targetRef="Activity_0z0j264" />
+    <bpmn:serviceTask id="Activity_08lznbu" name="Classify text" camunda:type="external" camunda:topic="classifyText">
+      <bpmn:incoming>Flow_1dne0ky</bpmn:incoming>
+      <bpmn:outgoing>Flow_1jk2coe</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1ezp7vx" name="Confirm receipt of innovation idea by email" camunda:type="external" camunda:topic="sendEmail">
+      <bpmn:incoming>Flow_1cjhwmr</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dne0ky</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:businessRuleTask id="Activity_1fbqhr5" name="Decide topic relevance" camunda:resultVariable="relevanceScore" camunda:decisionRef="Decision_0mqd38i" camunda:mapDecisionResult="singleResult">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="relevanceAnnotations">${relevanceScore.relevanceAnnotations}</camunda:outputParameter>
+          <camunda:outputParameter name="relevance">${relevanceScore.relevance}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0uhxgrw</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uj3alq</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:exclusiveGateway id="Gateway_0tsc9l3" name="Is the topic relevant?">
+      <bpmn:incoming>Flow_1uj3alq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0n6syxm</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1b8anog</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1uj3alq" sourceRef="Activity_1fbqhr5" targetRef="Gateway_0tsc9l3" />
+    <bpmn:sequenceFlow id="Flow_0n6syxm" name="yes" sourceRef="Gateway_0tsc9l3" targetRef="Activity_1ci0n6j">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${relevance == "yes"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1b8anog" name="no" sourceRef="Gateway_0tsc9l3" targetRef="Activity_0rexsmd">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${relevance == "no"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_19e8x5m">
+      <bpmn:incoming>Flow_0rpaca6</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1ci0n6j" name="Inform submitter about application forwarding by email" camunda:type="external" camunda:topic="sendEmail3">
+      <bpmn:incoming>Flow_0n6syxm</bpmn:incoming>
+      <bpmn:outgoing>Flow_0iugq6q</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1dne0ky" sourceRef="Activity_1ezp7vx" targetRef="Activity_08lznbu">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${notify}" event="take">
+          <camunda:field name="URL">
+            <camunda:string>https://hook.eu1.make.com/1ueyzfzn5e18r2kqzqe33jqkajhkitn</camunda:string>
+          </camunda:field>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1cjhwmr" sourceRef="StartEvent_1" targetRef="Activity_1ezp7vx" />
+    <bpmn:sequenceFlow id="Flow_0uhxgrw" sourceRef="Activity_0z0j264" targetRef="Activity_1fbqhr5" />
+    <bpmn:endEvent id="Event_1i1olxb">
+      <bpmn:incoming>Flow_1o9u797</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0iugq6q" sourceRef="Activity_1ci0n6j" targetRef="Activity_1brsq7p" />
+    <bpmn:sequenceFlow id="Flow_0rpaca6" sourceRef="Activity_0rexsmd" targetRef="Event_19e8x5m" />
+    <bpmn:serviceTask id="Activity_0rexsmd" name="Inform rejection with explanation by email" camunda:type="external" camunda:topic="sendEmail2">
+      <bpmn:incoming>Flow_1b8anog</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rpaca6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1q3jwd2" sourceRef="Activity_1brsq7p" targetRef="Gateway_0ttp1lg" />
+    <bpmn:businessRuleTask id="Activity_1brsq7p" name="Forward idea to Business Analyst" camunda:resultVariable="businessAnalyst" camunda:decisionRef="Decision_1l3i0ki" camunda:mapDecisionResult="singleResult">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="specialist">${businessAnalyst.specialist}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0iugq6q</bpmn:incoming>
+      <bpmn:outgoing>Flow_1q3jwd2</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1o9u797" sourceRef="Activity_1q1re37" targetRef="Event_1i1olxb" />
+    <bpmn:userTask id="Activity_1q1re37" name="Evaluate idea feasibility" camunda:assignee="Stefan" camunda:candidateUsers="Stefan" camunda:candidateGroups="Business Analyst">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="sendingtimeCr" label="Date of CR" type="string" />
+          <camunda:formField id="fullNameSubmitter" label="Submitter" type="string" />
+          <camunda:formField id="eMailSubmitter" label="E-Mail" type="string" />
+          <camunda:formField id="titleCr" label="Title" type="string" />
+          <camunda:formField id="ideaCr" label="Idea Description" type="string" />
+          <camunda:formField id="linkCr" label="Link" type="string" />
+          <camunda:formField id="maturityCr" label="Maturity" type="string" />
+          <camunda:formField id="regionCr" label="Establishment" type="string" />
+          <camunda:formField id="topicCr" label="Topic" type="string" />
+          <camunda:formField id="comment" label="Comment" type="enum">
+            <camunda:value id="Value_1snsel4" name="&#34;new idea, not implemented yet&#34;" />
+            <camunda:value id="Value_3dcm0sq" name="&#34;innovative idea&#34;" />
+            <camunda:value id="Value_3fc13ej" name="&#34;strategic decision needed&#34;" />
+            <camunda:value id="Value_2ap5jvs" name="&#34;not finnova compatible&#34;" />
+            <camunda:value id="Value_10klaet" name="&#34;change of daily working&#34;" />
+            <camunda:value id="Value_0e4dt3e" name="&#34;operative topic&#34;" />
+            <camunda:value id="Value_22lsvg4" name="&#34;legal issue while implementing&#34;" />
+            <camunda:value id="Value_1m6h4dv" name="&#34;existing alternative&#34;" />
+          </camunda:formField>
+        </camunda:formData>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="comment" />
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_104uxxe</bpmn:incoming>
+      <bpmn:outgoing>Flow_1o9u797</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_0ttp1lg" name="Who is responsible for the topic?">
+      <bpmn:incoming>Flow_1q3jwd2</bpmn:incoming>
+      <bpmn:outgoing>Flow_104uxxe</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0fht29b</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ks8pse</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_104uxxe" name="Stefan" sourceRef="Gateway_0ttp1lg" targetRef="Activity_1q1re37">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${specialist == "Stefan"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0fht29b" name="Sandra" sourceRef="Gateway_0ttp1lg" targetRef="Activity_0ftohth">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${specialist == "Sandra"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1ks8pse" name="Michael" sourceRef="Gateway_0ttp1lg" targetRef="Activity_1lkh0ak">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${specialist == "Michael"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="Activity_0ftohth" name="Evaluate idea feasibility" camunda:assignee="Sandra" camunda:candidateUsers="Sandra" camunda:candidateGroups="Business Analyst">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="sendingtimeCr" label="Date of CR" type="string" />
+          <camunda:formField id="fullNameSubmitter" label="Submitter" type="string" />
+          <camunda:formField id="eMailSubmitter" label="E-Mail" type="string" />
+          <camunda:formField id="titleCr" label="Title" type="string" />
+          <camunda:formField id="ideaCr" label="Idea Description" type="string" />
+          <camunda:formField id="linkCr" label="Link" type="string" />
+          <camunda:formField id="maturityCr" label="Maturity" type="string" />
+          <camunda:formField id="regionCr" label="Establishment" type="string" />
+          <camunda:formField id="topicCr" label="Topic" type="string" />
+          <camunda:formField id="comment" label="Comment" type="enum">
+            <camunda:value id="Value_2dvauuf" name="&#34;new idea, not implemented yet&#34;" />
+            <camunda:value id="Value_1r2or46" name="&#34;innovative idea&#34;" />
+            <camunda:value id="Value_3dr0sk9" name="&#34;strategic decision needed&#34;" />
+            <camunda:value id="Value_1qgrljf" name="&#34;not finnova compatible&#34;" />
+            <camunda:value id="Value_2tsjpqg" name="&#34;change of daily working&#34;" />
+            <camunda:value id="Value_07ofm64" name="&#34;operative topic&#34;" />
+            <camunda:value id="Value_075us9d" name="&#34;legal issue while implementing&#34;" />
+            <camunda:value id="Value_05opjjk" name="&#34;existing alternative&#34;" />
+            <camunda:value id="Value_2jh5o7c" name="&#34;legal issue while implementing&#34;" />
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0fht29b</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ueitj2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Activity_1lkh0ak" name="Evaluate idea feasibility" camunda:assignee="Michael" camunda:candidateUsers="Michael" camunda:candidateGroups="Business Analyst">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="sendingtimeCr" label="Date of CR" type="string" />
+          <camunda:formField id="fullNameSubmitter" label="Submitter" type="string" />
+          <camunda:formField id="eMailSubmitter" label="E-Mail" type="string" />
+          <camunda:formField id="titleCr" label="Title" type="string" />
+          <camunda:formField id="ideaCr" label="Idea Description" type="string" />
+          <camunda:formField id="linkCr" label="Link" type="string" />
+          <camunda:formField id="maturityCr" label="Maturity" type="string" />
+          <camunda:formField id="regionCr" label="Establishment" type="string" />
+          <camunda:formField id="topicCr" label="Topic" type="string" />
+          <camunda:formField id="comment" label="Comment" type="enum">
+            <camunda:value id="Value_0dbjmpg" name="&#34;new idea, not implemented yet&#34;" />
+            <camunda:value id="Value_3jivqs4" name="&#34;innovative idea&#34;" />
+            <camunda:value id="Value_3d021ic" name="&#34;strategic decision needed&#34;" />
+            <camunda:value id="Value_0i1alvk" name="&#34;not finnova compatible&#34;" />
+            <camunda:value id="Value_3nk9ses" name="&#34;change of daily working&#34;" />
+            <camunda:value id="Value_1mes8v7" name="&#34;operative topic&#34;" />
+            <camunda:value id="Value_3ke967j" name="&#34;legal issue while implementing&#34;" />
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ks8pse</bpmn:incoming>
+      <bpmn:outgoing>Flow_1e529zq</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1c3xn7b">
+      <bpmn:incoming>Flow_1ueitj2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1ueitj2" sourceRef="Activity_0ftohth" targetRef="Event_1c3xn7b" />
+    <bpmn:endEvent id="Event_0a7at1v">
+      <bpmn:incoming>Flow_1e529zq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1e529zq" sourceRef="Activity_1lkh0ak" targetRef="Event_0a7at1v" />
+  </bpmn:process>
+  <bpmn:message id="Message_0962zrm" name="crFormReceived" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="EventTillClassifier">
+      <bpmndi:BPMNEdge id="Flow_1e529zq_di" bpmnElement="Flow_1e529zq">
+        <di:waypoint x="1760" y="730" />
+        <di:waypoint x="1862" y="730" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ueitj2_di" bpmnElement="Flow_1ueitj2">
+        <di:waypoint x="1760" y="570" />
+        <di:waypoint x="1862" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ks8pse_di" bpmnElement="Flow_1ks8pse">
+        <di:waypoint x="1540" y="302" />
+        <di:waypoint x="1540" y="730" />
+        <di:waypoint x="1660" y="730" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1572" y="713" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fht29b_di" bpmnElement="Flow_0fht29b">
+        <di:waypoint x="1540" y="302" />
+        <di:waypoint x="1540" y="570" />
+        <di:waypoint x="1660" y="570" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1583" y="553" width="36" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_104uxxe_di" bpmnElement="Flow_104uxxe">
+        <di:waypoint x="1540" y="302" />
+        <di:waypoint x="1540" y="430" />
+        <di:waypoint x="1660" y="430" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1585" y="412" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1o9u797_di" bpmnElement="Flow_1o9u797">
+        <di:waypoint x="1760" y="430" />
+        <di:waypoint x="1862" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1q3jwd2_di" bpmnElement="Flow_1q3jwd2">
+        <di:waypoint x="1480" y="277" />
+        <di:waypoint x="1515" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rpaca6_di" bpmnElement="Flow_0rpaca6">
+        <di:waypoint x="1280" y="120" />
+        <di:waypoint x="1402" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0iugq6q_di" bpmnElement="Flow_0iugq6q">
+        <di:waypoint x="1280" y="277" />
+        <di:waypoint x="1380" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uhxgrw_di" bpmnElement="Flow_0uhxgrw">
+        <di:waypoint x="680" y="277" />
+        <di:waypoint x="780" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1cjhwmr_di" bpmnElement="Flow_1cjhwmr">
+        <di:waypoint x="148" y="277" />
+        <di:waypoint x="260" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dne0ky_di" bpmnElement="Flow_1dne0ky">
+        <di:waypoint x="360" y="277" />
+        <di:waypoint x="410" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1b8anog_di" bpmnElement="Flow_1b8anog">
+        <di:waypoint x="1080" y="252" />
+        <di:waypoint x="1080" y="120" />
+        <di:waypoint x="1180" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1058" y="173" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0n6syxm_di" bpmnElement="Flow_0n6syxm">
+        <di:waypoint x="1105" y="277" />
+        <di:waypoint x="1180" y="277" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1103" y="259" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uj3alq_di" bpmnElement="Flow_1uj3alq">
+        <di:waypoint x="880" y="277" />
+        <di:waypoint x="1055" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jk2coe_di" bpmnElement="Flow_1jk2coe">
+        <di:waypoint x="510" y="277" />
+        <di:waypoint x="580" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1ozwdx8_di" bpmnElement="Activity_0z0j264">
+        <dc:Bounds x="580" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_03jyu58_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="112" y="259" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0i8iy1j_di" bpmnElement="Activity_08lznbu">
+        <dc:Bounds x="410" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ezp7vx_di" bpmnElement="Activity_1ezp7vx">
+        <dc:Bounds x="260" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fbqhr5_di" bpmnElement="Activity_1fbqhr5">
+        <dc:Bounds x="780" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0tsc9l3_di" bpmnElement="Gateway_0tsc9l3" isMarkerVisible="true">
+        <dc:Bounds x="1055" y="252" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1053" y="311.5" width="54" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_19e8x5m_di" bpmnElement="Event_19e8x5m">
+        <dc:Bounds x="1402" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ci0n6j_di" bpmnElement="Activity_1ci0n6j">
+        <dc:Bounds x="1180" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0uytuit_di" bpmnElement="Activity_0rexsmd">
+        <dc:Bounds x="1180" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tr16iw_di" bpmnElement="Activity_1brsq7p">
+        <dc:Bounds x="1380" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0k0391a_di" bpmnElement="Activity_1q1re37">
+        <dc:Bounds x="1660" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0ttp1lg_di" bpmnElement="Gateway_0ttp1lg" isMarkerVisible="true">
+        <dc:Bounds x="1515" y="252" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1593" y="257" width="73" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1cvez8a_di" bpmnElement="Activity_0ftohth">
+        <dc:Bounds x="1660" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0q7k0ue_di" bpmnElement="Activity_1lkh0ak">
+        <dc:Bounds x="1660" y="690" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1c3xn7b_di" bpmnElement="Event_1c3xn7b">
+        <dc:Bounds x="1862" y="552" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0a7at1v_di" bpmnElement="Event_0a7at1v">
+        <dc:Bounds x="1862" y="712" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1i1olxb_di" bpmnElement="Event_1i1olxb">
+        <dc:Bounds x="1862" y="412" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
