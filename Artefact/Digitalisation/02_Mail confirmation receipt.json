@@ -2,45 +2,6 @@
     "name": "002-FINAL Send email 1 working version (don't change)",
     "flow": [
         {
-            "id": 13,
-            "module": "gateway:CustomWebHook",
-            "version": 1,
-            "parameters": {
-                "hook": 136061,
-                "maxResults": 1
-            },
-            "mapper": {},
-            "metadata": {
-                "designer": {
-                    "x": -363,
-                    "y": -8
-                },
-                "restore": {
-                    "parameters": {
-                        "hook": {
-                            "data": {
-                                "editable": "true"
-                            },
-                            "label": "My gateway-webhook 2"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "hook",
-                        "type": "hook:gateway-webhook",
-                        "label": "Webhook",
-                        "required": true
-                    },
-                    {
-                        "name": "maxResults",
-                        "type": "number",
-                        "label": "Maximum number of results"
-                    }
-                ]
-            }
-        },
-        {
             "id": 12,
             "module": "http:ActionSendData",
             "version": 3,
@@ -288,6 +249,17 @@
                 "account": 272164,
                 "saveAfterSent": false
             },
+            "filter": {
+                "name": "",
+                "conditions": [
+                    [
+                        {
+                            "a": "{{12.data[].variables.eMailSubmitter.value}}",
+                            "o": "exist"
+                        }
+                    ]
+                ]
+            },
             "mapper": {
                 "cc": [],
                 "to": [
@@ -308,8 +280,8 @@
             },
             "metadata": {
                 "designer": {
-                    "x": 281,
-                    "y": 4
+                    "x": 472,
+                    "y": 7
                 },
                 "restore": {
                     "expect": {
@@ -550,7 +522,7 @@
             },
             "metadata": {
                 "designer": {
-                    "x": 600,
+                    "x": 900,
                     "y": 0
                 },
                 "restore": {
@@ -760,7 +732,7 @@
         }
     ],
     "metadata": {
-        "instant": true,
+        "instant": false,
         "version": 1,
         "scenario": {
             "roundtrips": 1,
