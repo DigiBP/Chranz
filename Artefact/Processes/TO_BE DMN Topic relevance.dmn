@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_17wagua" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="Decision_0mqd38i" name="Relevance">
+    <decisionTable id="DecisionTable_1dm738j" hitPolicy="FIRST">
+      <input id="Input_1" label="Topic">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>topicCr</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0vjjzsn" label="Maturity Level">
+        <inputExpression id="LiteralExpression_12i82it" typeRef="string">
+          <text>maturityCr</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_12k92wg" label="Established Region">
+        <inputExpression id="LiteralExpression_1gsqwj1" typeRef="string">
+          <text>regionCr</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Relevance" name="relevance" typeRef="string" />
+      <output id="OutputClause_0gfcbg6" label="Relevance Annotations" name="relevanceAnnotations" typeRef="string" />
+      <rule id="DecisionRule_158zyyv">
+        <description></description>
+        <inputEntry id="UnaryTests_10j706j">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u5rn26">
+          <text>"Early Followers", "Not established"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qf12xf">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xe7pdk">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mw4odl">
+          <text>"we only focus on established products"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1n25jso">
+        <description></description>
+        <inputEntry id="UnaryTests_13g7nqt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ugrj3g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gkpwlx">
+          <text>"Europe outside CH", "Outside Europe"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0sor154">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ric4et">
+          <text>"the product needs to be established in Switzerland"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12hgp20">
+        <description></description>
+        <inputEntry id="UnaryTests_06sdk0k">
+          <text>"Architecture", "Client Portal", "Customer and Account", "Documents", "Enterprise Management", "online Tool", "Financing", "Investment Banking", "Payments"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ezar6h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xu1caf">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o48bpj">
+          <text>"yes"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0iopsmc">
+          <text>"we need a deeper analysis, to assess the idea"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06732wn">
+        <description></description>
+        <inputEntry id="UnaryTests_1khy4af">
+          <text>"Crypto", "Insurance", "Chat Bot", "Precaution"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jnje0a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u0o095">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1k4d5yc">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0323cok">
+          <text>"the topic has been discussed several times in our company and we decided not to invest resources in this field"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_0mqd38i">
+        <dc:Bounds height="80" width="180" x="250" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

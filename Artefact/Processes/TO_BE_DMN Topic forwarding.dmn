@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_17wagua" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="Decision_0itmdb0" name="topic forwarding">
+    <decisionTable id="DecisionTable_1eaagca">
+      <input id="InputClause_1ekxr4n" label="Comment">
+        <inputExpression id="LiteralExpression_1bpvfr4" typeRef="string">
+          <text>comment</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1pzoqdf" label="Feasibility" name="feasibility" typeRef="string" />
+      <output id="OutputClause_1jpyart" label="Reason" name="reason" typeRef="string" />
+      <rule id="DecisionRule_1ec5y2t">
+        <description></description>
+        <inputEntry id="UnaryTests_0j648oj">
+          <text>"not_finnova_compatible"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p7vsj9">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03fpu88">
+          <text>"Your idea is declined as it is not compatible with finnova."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vd85jv">
+        <description></description>
+        <inputEntry id="UnaryTests_15jruvg">
+          <text>"change_of_daily_working", "operative_topic"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z0c9n4">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0t39fm0">
+          <text>"Your idea is declined as the request is a change of daily work and not an innovation idea."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nf0p17">
+        <description></description>
+        <inputEntry id="UnaryTests_00l0rpe">
+          <text>"innovative_idea"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xtnudv">
+          <text>"yes"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0yr5nzb">
+          <text>"Your idea is taken to innovation Board, as it is an innovation idea."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1onyu5o">
+        <description></description>
+        <inputEntry id="UnaryTests_0iuyrla">
+          <text>"new_idea"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xg7864">
+          <text>"yes"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jr8j1n">
+          <text>"Your idea is taken to innovation Board, as it is a new idea and not implemented yet."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1l52wyj">
+        <description></description>
+        <inputEntry id="UnaryTests_0ppt363">
+          <text>"strategic_decision_needed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0eqrpw4">
+          <text>"yes"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0g90pek">
+          <text>"Your idea is taken to innovation Board according to the strategic guideline."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mudan9">
+        <description></description>
+        <inputEntry id="UnaryTests_0jf2snb">
+          <text>"legal_issue_while_implementing"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0buprms">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1iqz38p">
+          <text>"Your idea is declined as there are legal issues while implementation."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gze1wi">
+        <description></description>
+        <inputEntry id="UnaryTests_0w1pwd0">
+          <text>"existing_alternative"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_118wu0w">
+          <text>"no"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0q2zm72">
+          <text>"Your idea is declined as alternatives are already implemented."</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_0zbbfh7" dmnElementRef="Decision_0itmdb0">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

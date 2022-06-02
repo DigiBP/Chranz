@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_17wagua" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="Decision_1l3i0ki" name="Specialist">
+    <decisionTable id="DecisionTable_0jno9b2">
+      <input id="InputClause_0sk1kfy" label="Topic" camunda:inputVariable="topicCr">
+        <inputExpression id="LiteralExpression_091ob09" typeRef="string">
+          <text>topicCr</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1oexszf" label="Specialist" name="specialist" typeRef="string" />
+      <rule id="DecisionRule_0fe3r39">
+        <inputEntry id="UnaryTests_1xjc6gp">
+          <text>"Architecture", "Enterprise Management"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0h1bdlc">
+          <text>"Michael"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04ogn17">
+        <inputEntry id="UnaryTests_02urenu">
+          <text>"Client Portal", "Customer and Account", "Documents", "online Tool"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0x3nld7">
+          <text>"Sandra"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0p5s1no">
+        <inputEntry id="UnaryTests_0q9vm6o">
+          <text>"Financing", "Investment Banking", "Payments"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vv9un8">
+          <text>"Stefan"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_0nrdvqv" dmnElementRef="Decision_1l3i0ki">
+        <dc:Bounds height="80" width="180" x="160" y="70" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
