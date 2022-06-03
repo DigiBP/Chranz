@@ -6,7 +6,6 @@
     <bpmn:participant id="Participant_1f1u5bb" name="Submitter" />
     <bpmn:messageFlow id="Flow_1dwfsop" sourceRef="Participant_1f1u5bb" targetRef="StartEvent_1" />
     <bpmn:messageFlow id="Flow_0h0mqvn" sourceRef="Activity_1ezp7vx" targetRef="Participant_1f1u5bb" />
-    <bpmn:messageFlow id="Flow_0uzqh92" sourceRef="Activity_08lznbu" targetRef="Participant_1f1u5bb" />
     <bpmn:messageFlow id="Flow_04rxcia" sourceRef="Activity_0rexsmd" targetRef="Participant_1f1u5bb" />
     <bpmn:messageFlow id="Flow_0vt0cn2" sourceRef="Activity_1ci0n6j" targetRef="Participant_1f1u5bb" />
     <bpmn:messageFlow id="Flow_19gs72n" sourceRef="Activity_0wkyg85" targetRef="Participant_1f1u5bb" />
@@ -517,10 +516,6 @@
       <bpmndi:BPMNEdge id="Flow_0h0mqvn_di" bpmnElement="Flow_0h0mqvn">
         <di:waypoint x="400" y="500" />
         <di:waypoint x="400" y="200" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0uzqh92_di" bpmnElement="Flow_0uzqh92">
-        <di:waypoint x="620" y="500" />
-        <di:waypoint x="620" y="200" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_04rxcia_di" bpmnElement="Flow_04rxcia">
         <di:waypoint x="1360" y="350" />
